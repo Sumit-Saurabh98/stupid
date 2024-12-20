@@ -1,12 +1,11 @@
-import {Button} from "@/components/ui/button"
+import SignUp from "./pages/SignUp"
 
 function App() {
 
   return (
-    <>
-      <h1 className="text-red-500 text-3xl">Hello World!</h1>
-      <Button>Click Me</Button>
-    </>
+    <div className="bg-black h-screen w-full text-white">
+      <SignUp/>
+    </div>
   )
 }
 
