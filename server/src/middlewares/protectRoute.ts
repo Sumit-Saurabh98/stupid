@@ -2,13 +2,13 @@ import {Request, Response, NextFunction} from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
-export const protectRoute = async (req:Request, res:Response, next:NextFunction) => {
+export const protectRoute = async (req:Request, res:Response, next:NextFunction) : Promise<Response<any, Record<string, any>> | undefined> => {
 
     try {
         const accessToken = req.cookies._jsonwebtoken_stupid_token;
 
         if(!accessToken){
-            return res.status(4001).json({message:"Unauthorized user - no access token provided", status:false})
+            return res.status(401).json({message:"Unauthorized user - no access token provided", status:false})
         }
 
         const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET as string) as jwt.JwtPayload
@@ -19,6 +19,7 @@ export const protectRoute = async (req:Request, res:Response, next:NextFunction)
             return res.status(401).json({ message: "Invalid token", status: false });
         }
 
+        // @ts-ignore
         req.user = user;
 
         next();

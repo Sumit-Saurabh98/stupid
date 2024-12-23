@@ -8,15 +8,20 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true,
+        required: false,
         unique: true
     },
     password: {
         type: String,
-        required: true,
         minLength: 8
+    },
+    googleId: {
+        type: String
+    },
+    githubId: {
+        type: String
     }
-})
+}, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);
 
