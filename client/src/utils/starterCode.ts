@@ -2,7 +2,7 @@ const defaultCode = [
   {
     value: "javascript",
     label: "JavaScript",
-    script: `// JavaScript Editor
+    script: `// Dou you know:-😂 JavaScript is the only language where you can null someone’s expectations and still be considered undefined
 
 // You can write your JavaScript code here
 function main() {
@@ -16,7 +16,7 @@ main();`
   {
     value: "typescript",
     label: "TypeScript",
-    script: `// TypeScript Editor
+    script: `// Dou you know:-😂 TypeScript is like that friend who constantly asks, 'Are you sure?' before you do anything
 
 // Define your types here
 type Person = {
@@ -36,7 +36,7 @@ main();`
   {
     value: "python",
     label: "Python",
-    script: `# Python Editor
+    script: `# Dou you know:-😂 Python is like a toxic ex—you keep coming back because it's easy, but deep down, you know it's making you lazy
 
 def main():
     # Your Python code goes here
@@ -49,7 +49,7 @@ if __name__ == '__main__':
   {
     value: "java",
     label: "Java",
-    script: `// Java Editor
+    script: `// Dou you know:-😂 Java is like a relationship: starts with a lot of promises, but most of them get thrown as exceptions.
 
 public class Main {
     public static void main(String[] args) {
@@ -61,7 +61,7 @@ public class Main {
   {
     value: "cpp",
     label: "C++",
-    script: `// C++ Editor
+    script: `// Dou you know:-😂 C++ devs don't go to therapy; they just delete this and hope for the best
 
 #include <iostream>
 using namespace std;
@@ -75,7 +75,7 @@ int main() {
   {
     value: "c",
     label: "C",
-    script: `// C Editor
+    script: `// Dou you know:-😂 C is like a dog—loyal but unpredictable. If you mess up, it might bite you... or dereference you.
 
 #include <stdio.h>
 

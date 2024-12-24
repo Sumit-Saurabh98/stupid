@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Copy, Download, Play, RotateCcw, RefreshCw, Loader2 } from 'lucide-react';
+import { Copy, Download, Play, RotateCcw, RefreshCw, Loader2, Heart } from 'lucide-react';
 import { useEditorStore } from '@/store/useEditorStore';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -69,7 +69,7 @@ const Editor = () => {
       <Card className="bg-gray-800 border-gray-700">
         <div className="p-4 border-b border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-bold text-white">Code Editor</h1>
+            <h1 className="text-xl font-bold text-white">Love <Heart className="w-4 h-4 text-red-500 inline animate-pulse" /> the way you code!</h1>
             <div className="flex items-center gap-2">
               <Select onValueChange={setTheme} defaultValue={theme}>
                 <SelectTrigger className="w-40 text-white">
@@ -151,7 +151,7 @@ const Editor = () => {
           {/* Editor Panel */}
           <div className="w-1/2 border-r border-gray-700">
             <MonacoEditor
-              height="80vh"
+              height="85vh"
               theme={theme}
               language={language}
               value={code}
