@@ -1,4 +1,3 @@
-
 import MonacoEditor from '@monaco-editor/react';
 import {
   Select,
@@ -10,18 +9,22 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Copy, Download, Play } from 'lucide-react';
+import { Textarea } from "@/components/ui/textarea";
+import { Copy, Download, Play, RotateCcw } from 'lucide-react';
 import { useEditorStore } from '@/store/useEditorStore';
 import { Loader2 } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Editor = () => {
   const {
     code,
+    input,
     language,
     theme,
     isExecuting,
     executionResult,
     setCode,
+    setInput,
     setLanguage,
     setTheme,
     executeCode
@@ -54,6 +57,10 @@ const Editor = () => {
     a.download = `code.${language}`;
     a.click();
     window.URL.revokeObjectURL(url);
+  };
+
+  const clearInput = () => {
+    setInput('');
   };
 
   return (
@@ -155,31 +162,65 @@ const Editor = () => {
             />
           </div>
           
-          {/* Output Panel */}
-          <div className="w-1/2 h-[80vh] bg-gray-900 p-4 overflow-auto">
-            <div className="font-mono text-sm">
-              {isExecuting ? (
-                <div className="flex items-center justify-center h-full">
-                  <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+          {/* Output and Input Panel */}
+          <div className="w-1/2">
+            <Tabs defaultValue="output" className="w-full">
+              <TabsList className="w-full bg-gray-700">
+                <TabsTrigger value="output" className="w-1/2">Output</TabsTrigger>
+                <TabsTrigger value="input" className="w-1/2">Input</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="output" className="mt-0">
+                <div className="h-[80vh] bg-gray-900 p-4 overflow-auto">
+                  <div className="font-mono text-sm">
+                    {isExecuting ? (
+                      <div className="flex items-center justify-center h-full">
+                        <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+                      </div>
+                    ) : executionResult ? (
+                      <div>
+                        {executionResult.error ? (
+                          <div className="text-red-500 whitespace-pre-wrap">
+                            {executionResult.error}
+                          </div>
+                        ) : (
+                          <div className="text-green-500 whitespace-pre-wrap">
+                            {executionResult.output || 'No output'}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="text-gray-400 flex items-center justify-center h-full">
+                        Run your code to see the output here
+                      </div>
+                    )}
+                  </div>
                 </div>
-              ) : executionResult ? (
-                <div>
-                  {executionResult.error ? (
-                    <div className="text-red-500 whitespace-pre-wrap">
-                      {executionResult.error}
-                    </div>
-                  ) : (
-                    <div className="text-green-500 whitespace-pre-wrap">
-                      {executionResult.output || 'No output'}
-                    </div>
-                  )}
+              </TabsContent>
+              
+              <TabsContent value="input" className="mt-0">
+                <div className="h-[80vh] bg-gray-900 p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="text-sm font-medium text-gray-200">Program Input</h3>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={clearInput}
+                      className="text-gray-400 hover:text-gray-200"
+                    >
+                      <RotateCcw className="w-4 h-4 mr-2" />
+                      Clear
+                    </Button>
+                  </div>
+                  <Textarea
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Enter your program input here..."
+                    className="h-[calc(80vh-4rem)] bg-gray-800 border-gray-700 text-gray-200 resize-none font-mono"
+                  />
                 </div>
-              ) : (
-                <div className="text-gray-400 flex items-center justify-center h-full">
-                  Run your code to see the output here
-                </div>
-              )}
-            </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </Card>
