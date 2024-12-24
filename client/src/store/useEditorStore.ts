@@ -18,9 +18,10 @@ interface EditorState {
   setTheme: (theme: string) => void;
   setInput: (input: string) => void;
   executeCode: () => Promise<void>;
+  resetCode: () => void;      // New function
+  resetOutput: () => void;    // New function
 }
 
-// Helper function to get default code for a language
 const getDefaultCodeForLanguage = (language: string): string => {
   const template = defaultCode.find(temp => temp.value === language);
   return template ? template.script : '// Start coding here';
@@ -31,26 +32,35 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   language: 'javascript',
   theme: 'vs-dark',
   isExecuting: false,
-  input: '', // Added initial state for input
+  input: '',
   executionResult: null,
   
   setCode: (code) => set({ code }),
   
   setLanguage: (language) => set({ 
     language,
-    code: getDefaultCodeForLanguage(language) // Update code when language changes
+    code: getDefaultCodeForLanguage(language)
   }),
   
   setTheme: (theme) => set({ theme }),
   
-  setInput: (input) => set({ input }), // Added setter for input
+  setInput: (input) => set({ input }),
+  
+  // New reset functions
+  resetCode: () => {
+    const { language } = get();
+    set({ code: getDefaultCodeForLanguage(language) });
+  },
+  
+  resetOutput: () => {
+    set({ executionResult: null });
+  },
   
   executeCode: async () => {
-    const { code, language, input } = get(); // Get input from state
+    const { code, language, input } = get();
     set({ isExecuting: true, executionResult: null });
     
     try {
-      // Map editor languages to Piston runtime names
       const languageMap: { [key: string]: string } = {
         javascript: 'javascript',
         typescript: 'typescript',
@@ -73,7 +83,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
           files: [{
             content: code,
           }],
-          stdin: input, // Added input to the request
+          stdin: input,
         }),
       });
       
