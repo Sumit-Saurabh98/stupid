@@ -11,7 +11,7 @@ export const protectRoute = async (req:Request, res:Response, next:NextFunction)
             return res.status(401).json({message:"Unauthorized user - no access token provided", status:false})
         }
 
-        const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET as string) as jwt.JwtPayload
+        const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET as string) as any;
 
         const user = await User.findById(decodedToken._id).select("password");
 
