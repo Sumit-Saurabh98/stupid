@@ -116,11 +116,11 @@ export const userUserStore = create<IUserStore>((set) => ({
   },
 
   googleLogin: async () => {
-    window.location.href = 'http://localhost:5001/api/auth/google';
+    window.location.href = `${import.meta.env.VITE_SERVER_URL}/api/auth/google`;
   },
 
 githubLogin: async () => {
-    window.location.href = 'http://localhost:5001/api/auth/github';
+    window.location.href = `${import.meta.env.VITE_SERVER_URL}/api/auth/github`;
   },
 
 
