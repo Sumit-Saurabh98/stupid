@@ -10,9 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Copy, Download, Play, RotateCcw } from 'lucide-react';
+import { Copy, Download, Play, RotateCcw, RefreshCw, Loader2 } from 'lucide-react';
 import { useEditorStore } from '@/store/useEditorStore';
-import { Loader2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Editor = () => {
@@ -27,7 +26,9 @@ const Editor = () => {
     setInput,
     setLanguage,
     setTheme,
-    executeCode
+    executeCode,
+    resetCode,
+    resetOutput
   } = useEditorStore();
 
   const themes = [
@@ -103,37 +104,46 @@ const Editor = () => {
           </div>
           <div className="flex gap-2">
             <Button
-              variant="outline"
-              size="sm"
-              onClick={handleCopy}
-              className="bg-gray-700 hover:bg-gray-600 text-gray-200"
-            >
-              <Copy className="w-4 h-4 mr-2" />
-              Copy
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleDownload}
-              className="bg-gray-700 hover:bg-gray-600 text-gray-200"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Download
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={executeCode}
-              disabled={isExecuting}
-              className="bg-gray-700 hover:bg-gray-600 text-gray-200"
-            >
-              {isExecuting ? (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              ) : (
-                <Play className="w-4 h-4 mr-2" />
-              )}
-              Run
-            </Button>
+      variant="outline"
+      size="sm"
+      onClick={handleCopy}
+      className="bg-gray-700 hover:bg-gray-600 text-gray-200"
+    >
+      <Copy className="w-4 h-4 mr-2" />
+      Copy
+    </Button>
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={handleDownload}
+      className="bg-gray-700 hover:bg-gray-600 text-gray-200"
+    >
+      <Download className="w-4 h-4 mr-2" />
+      Download
+    </Button>
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={resetCode}
+      className="bg-gray-700 hover:bg-gray-600 text-gray-200"
+    >
+      <RefreshCw className="w-4 h-4 mr-2" />
+      Reset Code
+    </Button>
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={executeCode}
+      disabled={isExecuting}
+      className="bg-gray-700 hover:bg-gray-600 text-gray-200"
+    >
+      {isExecuting ? (
+        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+      ) : (
+        <Play className="w-4 h-4 mr-2" />
+      )}
+      Run
+    </Button>
           </div>
         </div>
         
@@ -171,6 +181,15 @@ const Editor = () => {
               </TabsList>
               
               <TabsContent value="output" className="mt-0">
+                <Button
+          variant="outline"
+          size="sm"
+          onClick={resetOutput}
+          className="bg-gray-700 hover:bg-gray-600 text-gray-200"
+        >
+          <RotateCcw className="w-4 h-4 mr-2" />
+          Clear Output
+        </Button>
                 <div className="h-[80vh] bg-gray-900 p-4 overflow-auto">
                   <div className="font-mono text-sm">
                     {isExecuting ? (
@@ -203,10 +222,10 @@ const Editor = () => {
                   <div className="flex justify-between items-center mb-2">
                     <h3 className="text-sm font-medium text-gray-200">Program Input</h3>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={clearInput}
-                      className="text-gray-400 hover:text-gray-200"
+                      className="bg-gray-700 hover:bg-gray-600 text-gray-200"
                     >
                       <RotateCcw className="w-4 h-4 mr-2" />
                       Clear
