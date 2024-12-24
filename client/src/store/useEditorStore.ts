@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import defaultCode from '@/utils/starterCode';
 
-
 interface ExecutionResult {
   output: string;
   error: string | null;
@@ -12,10 +11,12 @@ interface EditorState {
   language: string;
   theme: string;
   isExecuting: boolean;
+  input: string;
   executionResult: ExecutionResult | null;
   setCode: (code: string) => void;
   setLanguage: (language: string) => void;
   setTheme: (theme: string) => void;
+  setInput: (input: string) => void;
   executeCode: () => Promise<void>;
 }
 
@@ -30,6 +31,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   language: 'javascript',
   theme: 'vs-dark',
   isExecuting: false,
+  input: '', // Added initial state for input
   executionResult: null,
   
   setCode: (code) => set({ code }),
@@ -41,8 +43,10 @@ export const useEditorStore = create<EditorState>((set, get) => ({
   
   setTheme: (theme) => set({ theme }),
   
+  setInput: (input) => set({ input }), // Added setter for input
+  
   executeCode: async () => {
-    const { code, language } = get();
+    const { code, language, input } = get(); // Get input from state
     set({ isExecuting: true, executionResult: null });
     
     try {
@@ -69,6 +73,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
           files: [{
             content: code,
           }],
+          stdin: input, // Added input to the request
         }),
       });
       
