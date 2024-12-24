@@ -64,7 +64,7 @@ const Editor = () => {
             <h1 className="text-xl font-bold text-white">Code Editor</h1>
             <div className="flex items-center gap-2">
               <Select onValueChange={setTheme} defaultValue={theme}>
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="w-40 text-white">
                   <SelectValue placeholder="Select theme" />
                 </SelectTrigger>
                 <SelectContent>
@@ -79,7 +79,7 @@ const Editor = () => {
               </Select>
 
               <Select onValueChange={setLanguage} defaultValue={language}>
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="w-40 text-white">
                   <SelectValue placeholder="Select language" />
                 </SelectTrigger>
                 <SelectContent>

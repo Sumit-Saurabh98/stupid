@@ -1,4 +1,6 @@
-import {create} from 'zustand'
+import { create } from 'zustand';
+import defaultCode from '@/utils/starterCode';
+
 
 interface ExecutionResult {
   output: string;
@@ -17,15 +19,26 @@ interface EditorState {
   executeCode: () => Promise<void>;
 }
 
+// Helper function to get default code for a language
+const getDefaultCodeForLanguage = (language: string): string => {
+  const template = defaultCode.find(temp => temp.value === language);
+  return template ? template.script : '// Start coding here';
+};
+
 export const useEditorStore = create<EditorState>((set, get) => ({
-  code: '// Start coding here',
+  code: getDefaultCodeForLanguage('javascript'),
   language: 'javascript',
   theme: 'vs-dark',
   isExecuting: false,
   executionResult: null,
   
   setCode: (code) => set({ code }),
-  setLanguage: (language) => set({ language }),
+  
+  setLanguage: (language) => set({ 
+    language,
+    code: getDefaultCodeForLanguage(language) // Update code when language changes
+  }),
+  
   setTheme: (theme) => set({ theme }),
   
   executeCode: async () => {
@@ -35,7 +48,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
     try {
       // Map editor languages to Piston runtime names
       const languageMap: { [key: string]: string } = {
-        javascript: 'node',
+        javascript: 'javascript',
         typescript: 'typescript',
         python: 'python3',
         java: 'java',
