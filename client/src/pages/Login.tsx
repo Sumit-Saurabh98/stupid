@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Github, Globe, Mail, Lock, Loader, ArrowRight, LogIn } from "lucide-react";
+import { Mail, Lock, Loader, ArrowRight, LogIn } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { userUserStore } from "@/store/useUserStore";
 
 const Login = () => {
 
-    const {login, loginLoading, googleLogin, githubLogin} = userUserStore()
+    const {login, loginLoading} = userUserStore()
 
     const [userData, setUserData] = useState({
         email: "",
@@ -29,15 +29,6 @@ const Login = () => {
         <div className="space-y-2 text-center">
           <h2 className="text-2xl font-bold text-white">Login to your account</h2>
           <p className="text-gray-400">Enter your email below to login to your account</p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <Button onClick={githubLogin} variant="outline" className="bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700">
-            <Github className="mr-2 h-4 w-4"/> GitHub
-          </Button>
-          <Button onClick={googleLogin} variant="outline" className="bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700">
-            <Globe className="mr-2 h-4 w-4"/> Google
-          </Button>
         </div>
 
         <div className="relative">

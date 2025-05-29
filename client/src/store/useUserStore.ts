@@ -14,8 +14,6 @@ export interface IUserStore {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
-  googleLogin: () => Promise<void>;
-  githubLogin: () => Promise<void>;
 }
 
 export const userUserStore = create<IUserStore>((set) => ({
@@ -114,14 +112,5 @@ export const userUserStore = create<IUserStore>((set) => ({
         set({checkingAuth: false, checkAuthLoading: false})
     }
   },
-
-  googleLogin: async () => {
-    window.location.href = `${import.meta.env.VITE_SERVER_URL}/api/auth/google`;
-  },
-
-githubLogin: async () => {
-    window.location.href = `${import.meta.env.VITE_SERVER_URL}/api/auth/github`;
-  },
-
 
 }));

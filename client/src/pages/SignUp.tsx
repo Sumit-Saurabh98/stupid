@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button";
 import {
-  Github,
-  Globe,
   User,
   Mail,
   Lock,
@@ -40,21 +38,6 @@ const SignUp = () => {
           <p className="text-gray-400">
             Enter your email below to create your account
           </p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant="outline"
-            className="bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700"
-          >
-            <Github className="mr-2 h-4 w-4" /> GitHub
-          </Button>
-          <Button
-            variant="outline"
-            className="bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700"
-          >
-            <Globe className="mr-2 h-4 w-4" /> Google
-          </Button>
         </div>
 
         <div className="relative">
